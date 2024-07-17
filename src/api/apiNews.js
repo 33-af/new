@@ -52,7 +52,13 @@ const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 const BASE_URL = 'https://cors-anywhere.herokuapp.com/https://api.currentsapi.services/v1/';
 
 
-export const getNews = async ({ page_number = 1, page_size = 10, category = null }) => {
+export const getNews = async ({
+  page_number = 1,
+  page_size = 10,
+  category = null,
+  keywords,
+
+}) => {
   try {
     console.log('Fetching news with params:', { page_number, page_size, category }); // Log parameters
     const response = await axios.get(`${BASE_URL}search`, {
@@ -61,6 +67,7 @@ export const getNews = async ({ page_number = 1, page_size = 10, category = null
         page_number,
         page_size,
         category,
+        keywords,
       },
       headers: {
         'Cache-Control': 'no-cache',

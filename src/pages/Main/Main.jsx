@@ -7,15 +7,26 @@ import NewsList from '../../NewsList/NewsList';
 import Skeleton from '../../components/Skeleton/Skeleton';
 import Pagination from '../../components/Pagination/Pagination';
 import Categories from '../../components/Categories/Categories';
+import Search from '../../components/Search/Search';
+import { useDebounce } from '../../helpers/hooks/useDebounde';
+
+
+
+
 
 const Main = () => {
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [keywords, setKeywords] = useState('')
   const [categories, setCategories] = useState([]); // доступные категории новостей.
   const [selectedCategory, setSelectedCategory] = useState('All'); // выбранная категория новостей.
   const totalPages = 10; // всего страниц
   const pageSize = 10; // количество новостей на странице.
+
+
+  // точ то передаем в хук
+const  debouncedKeywords = useDebounce(keywords, 1500)
 
   const fetchNews = async (currentPage) => {
     try {
@@ -24,6 +35,7 @@ const Main = () => {
         page_number: currentPage,
         page_size: pageSize,
         category: selectedCategory === 'All' ? null : selectedCategory,
+        keywords: debouncedKeywords,
       });
       if (response) {
         setNews(response.news);
@@ -52,7 +64,7 @@ const Main = () => {
 
   useEffect(() => {
     fetchNews(currentPage);
-  }, [currentPage, selectedCategory]);
+  }, [currentPage, selectedCategory, debouncedKeywords]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -77,6 +89,8 @@ const Main = () => {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
+      <Search keywords={keywords} setKeywords={setKeywords}/>
+
       {news.length > 0 && !isLoading ? (
         <NewsBanner item={news[0]} />
       ) : (
