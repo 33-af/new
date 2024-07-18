@@ -45,7 +45,6 @@
 //     return null; // Return null if there's an error
 //   }
 // };
-
 import axios from 'axios';
 
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
