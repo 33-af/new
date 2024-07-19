@@ -81,6 +81,28 @@ export const getNews = async ({
   }
 };
 
+export const getLatestNews = async () => {
+  try {
+    console.log('Fetching categories');
+    const response = await axios.get(`${BASE_URL}latest-news`, {
+      params: {
+        apiKey: API_KEY,
+      },
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest', // Add this header
+      },
+    });
+
+    console.log('API response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return null;
+  }
+};
+
 export const getCategories = async () => {
   try {
     console.log('Fetching categories');

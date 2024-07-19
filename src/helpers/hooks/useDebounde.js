@@ -16,7 +16,7 @@ export const useDebounce = (value, delay)=> {
         return()=> {
             clearTimeout(handler);
         };
-        // ри изменении value или delay, useEffect сбрасывает и снова устанавливает setTimeout, обновляя debouncedValue.
+        // Если value или delay изменяются, эффект сбрасывается и запускается заново
     }, [value, delay]);
     // возвращает текущее задержанное значение, к
     return debouncedValue;
