@@ -50,16 +50,14 @@ import axios from 'axios';
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 const BASE_URL = 'https://cors-anywhere.herokuapp.com/https://api.currentsapi.services/v1/';
 
-
 export const getNews = async ({
   page_number = 1,
   page_size = 10,
   category = null,
   keywords,
-
 }) => {
   try {
-    console.log('Fetching news with params:', { page_number, page_size, category }); // Log parameters
+    console.log('Fetching news with params:', { page_number, page_size, category });
     const response = await axios.get(`${BASE_URL}search`, {
       params: {
         apiKey: API_KEY,
@@ -71,11 +69,11 @@ export const getNews = async ({
       headers: {
         'Cache-Control': 'no-cache',
         'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
+        'X-Requested-With': 'XMLHttpRequest', // Add this header
       },
     });
 
-    console.log('API response:', response.data); // For debugging
+    console.log('API response:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching news:', error);
@@ -93,11 +91,11 @@ export const getCategories = async () => {
       headers: {
         'Cache-Control': 'no-cache',
         'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
+        'X-Requested-With': 'XMLHttpRequest', // Add this header
       },
     });
 
-    console.log('API response:', response.data); // For debugging
+    console.log('API response:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching categories:', error);
