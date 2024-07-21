@@ -1,12 +1,13 @@
 import { PAGE_SIZE, TOTAL_PAGES } from '../../constants/constants'
 import styles from './NewsByFilters.module.css'
-import { NewsList } from '../NewsList/NewsList'
+import  {NewsList}  from '../NewsList/NewsList'
 import NewsFilters from '../NewsFilters/NewsFilters';
 import { useFilters } from '../../helpers/hooks/useFilters'
-import { useDebounce } from '../../helpers/hooks/useDebounde';
+import { useDebounced } from '../../helpers/hooks/useDebounced';
 import { useFetch } from '../../helpers/hooks/useFetch';
 import { getNews } from '../../api/apiNews';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
+import { NewsApiResponse, ParamsType } from '../../interfaces';
 
 
 
@@ -21,9 +22,9 @@ const NewsByFilters = () => {
 
 
   //задержка для поиска
-  const debouncedKeywords = useDebounce(filters.keywords, 1500);
+  const debouncedKeywords = useDebounced(filters.keywords, 1500);
 
-  const { data, isLoading } = useFetch(getNews, {
+  const { data, isLoading } = useFetch<NewsApiResponse, ParamsType>(getNews, {
     ...filters,
     keywords: debouncedKeywords,
   });
@@ -42,7 +43,7 @@ const NewsByFilters = () => {
     }
   };
 
-  const handlePageClick = (pageNumber) => {
+  const handlePageClick = (pageNumber: number) => {
     changeFilter('page_number', pageNumber);
   };
 

@@ -1,11 +1,12 @@
 // useFilters.js
 import { useState } from "react";
+import { IFilters } from "../../interfaces";
 
-export const useFilters = (initialState) => {
+export const useFilters = (initialState: IFilters) => {
   // Key (имя фильтра) и value (новое значение для фильтра).
   const [filters, setFilters] = useState(initialState);
 
-  const changeFilter = (key, value) => {
+  const changeFilter = (key: string, value: string | number | null)=> {
     // Обновляет состояние фильтра
     setFilters((prev) => {
       // (prev) => {...}, где prev представляет предыдущее состояние filters.
