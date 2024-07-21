@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 
 // Используется для задержки обновления значения на определённый период времени
 // value (значение, которое нужно задержать) и delay (задержка в миллисекундах).
-export const useDebounced = (value, delay) => {
+export const useDebounced = (value: string, delay: number) => {
+  //jeneric
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {

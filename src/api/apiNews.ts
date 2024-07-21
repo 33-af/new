@@ -46,19 +46,21 @@
 //   }
 // };
 import axios from 'axios';
+import {  CategoriesApiResponse, NewsApiResponse, ParamsType } from '../interfaces';
 
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 const BASE_URL = 'https://cors-anywhere.herokuapp.com/https://api.currentsapi.services/v1/';
 
-export const getNews = async ({
-  page_number = 1,
-  page_size = 10,
-  category = null,
-  keywords,
-}) => {
+
+export const getNews = async (params?: ParamsType) : Promise<NewsApiResponse> => {
   try {
-    console.log('Fetching news with params:', { page_number, page_size, category });
-    const response = await axios.get(`${BASE_URL}search`, {
+    const {
+      page_number = 1,
+  page_size = 10,
+  category,
+  keywords,
+    } = params || {};
+    const response = await axios.get<NewsApiResponse>(`${BASE_URL}search`, {
       params: {
         apiKey: API_KEY,
         page_number,
@@ -77,14 +79,14 @@ export const getNews = async ({
     return response.data;
   } catch (error) {
     console.error('Error fetching news:', error);
-    return null;
+    
+    return {news: [], page: 1, status: 'error'};
   }
 };
 
-export const getLatestNews = async () => {
+export const getLatestNews = async (): Promise<NewsApiResponse> => {
   try {
-    console.log('Fetching categories');
-    const response = await axios.get(`${BASE_URL}latest-news`, {
+    const response = await axios.get<NewsApiResponse>(`${BASE_URL}latest-news`, {
       params: {
         apiKey: API_KEY,
       },
@@ -99,14 +101,14 @@ export const getLatestNews = async () => {
     return response.data;
   } catch (error) {
     console.error('Error fetching categories:', error);
-    return null;
+    return {news: [], page: 1, status: 'error'};
   }
 };
 
-export const getCategories = async () => {
+export const getCategories = async () : Promise<CategoriesApiResponse> => {
   try {
     console.log('Fetching categories');
-    const response = await axios.get(`${BASE_URL}available/categories`, {
+    const response = await axios.get<CategoriesApiResponse>(`${BASE_URL}available/categories`, {
       params: {
         apiKey: API_KEY,
       },
@@ -121,6 +123,6 @@ export const getCategories = async () => {
     return response.data;
   } catch (error) {
     console.error('Error fetching categories:', error);
-    return null;
+    return {categories: [], description: '', status: 'error'};
   }
 };
