@@ -12,7 +12,7 @@ export interface NewsListProps {
 // Define NewsList component
 export const NewsList = ({ news, isLoading }: NewsListProps) => {
   if (isLoading) {
-    return <div>Loading...</div>; // Display loading state
+    return <div className={styles.loading}>Loading...</div>; // Display loading state
   }
 
   if (!Array.isArray(news) || news.length === 0) {

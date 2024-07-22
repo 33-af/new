@@ -49,7 +49,7 @@ const NewsByFilters = () => {
 
   return (
     <section className={styles.section}>
-      <NewsFilters changeFilter={changeFilter} filters={filters} />
+      <NewsFilters  changeFilter={changeFilter} filters={filters} />
 
       <PaginationWrapper
         top
@@ -62,9 +62,6 @@ const NewsByFilters = () => {
       >
         <NewsList isLoading={isLoading} news={data?.news} />
       </PaginationWrapper>
-
-
-
     </section>
   );
 };

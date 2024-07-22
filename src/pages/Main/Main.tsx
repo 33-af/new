@@ -11,7 +11,9 @@ const Main = () => {
     <main className={styles.main}>
       <LatestNews />
 
-      <NewsByFilters />
+
+{/* дальше прокидуем */}
+      <NewsByFilters  />
     </main>
   );
 };
