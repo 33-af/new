@@ -8,14 +8,15 @@ interface Props {
   children: React.ReactNode;
   top?: boolean;
   bottom?: boolean;
+  
 }
 
-const PaginationWrapper = ({top, bottom, children, ...paginationProps}: Props & IPaginationProps) => {
+const PaginationWrapper = ({top, bottom, children,  ...paginationProps}: Props & IPaginationProps) => {
   return (
     <>
-    {top && <Pagination {...paginationProps}/>}
+    {top && <Pagination  {...paginationProps}/>}
     {children}
-    {bottom && <Pagination {...paginationProps} />}
+    {bottom && <Pagination  {...paginationProps} />}
     </>
   )
 }

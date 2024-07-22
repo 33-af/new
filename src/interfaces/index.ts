@@ -43,6 +43,7 @@ export  interface IPaginationProps{
   handleNextPage:  () => void,
   handlePageClick:  (page: number) => void,
   currentPage: number;
+
 }
 
 export interface WithSkeletonProps {
